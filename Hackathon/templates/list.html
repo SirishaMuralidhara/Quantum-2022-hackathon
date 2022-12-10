@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  </head>
+  <body style="background-color: #eed7db;">
+    <nav class="navbar bg-light">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1">Hackathon</span>
+        </div>
+      </nav>
+
+      <h1>The listed out candidates are : </h1>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Email</th>
+            <th scope="col">File</th>
+          </tr>
+        </thead>
+        <tbody id="body">
+          
+        </tbody>
+      </table>
+
+    <script>
+        body=document.getElementById('body');
+
+        var count =  parseInt("{{ count }}",10)
+        console.log(typeof count)
+        namee = '{{ nameList|tojson }}'
+        phonee = '{{ phoneList|tojson }}'
+        emaill = '{{ emailList|tojson }}'
+        filee = '{{ fileList|tojson }}'
+
+        console.log(namee)
+        nameList = (namee.slice(3,namee.length-3)).split('", "')
+        phoneList = (phonee.slice(3,phonee.length-3)).split('", "')
+        emailList = (emaill.slice(3,emaill.length-3)).split('", "')
+        fileList = (filee.slice(3,filee.length-3)).split('", "')
+        console.log(nameList)
+        console.log(emailList)
+        console.log(phoneList)
+
+        for(var i=0;i<count;i++){
+        var row=document.createElement('tr')
+
+        var data=document.createElement('td')
+        data.innerHTML = nameList[i]
+        row.appendChild(data)
+
+        var data2=document.createElement('td')
+        data2.innerHTML = phoneList[i]
+        row.appendChild(data2)
+
+        var data3=document.createElement('td')
+        data3.innerHTML = emailList[i]
+        row.appendChild(data3)
+
+        var data4=document.createElement('td')
+        a = document.createElement('a')
+        a.innerText= fileList[i]
+        a.setAttribute('href','C:/Users/Public/Hackathon/resumes'+fileList[i])
+        data4.appendChild(a)
+        row.appendChild(data4)
+
+        
+        body.appendChild(row)
+
+        
+        }
+        
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  </body>
+</html>
